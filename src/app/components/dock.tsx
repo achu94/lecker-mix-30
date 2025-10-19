@@ -25,7 +25,7 @@ export function Dock() {
         </button>
       </Link>
 
-      <Link href={"/add"}>
+      <Link href={"/shorts/add"}>
         <button className="dock-active">
           <FontAwesomeIcon
             className={`${iconsSizeTailwind} bg-secondary p-2 rounded-full`}
