@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { VideoPlayer } from "./components/VideoPlayer";
+import { Dock } from "./components/dock";
 
 interface Recipe {
   id: string;
@@ -60,7 +61,8 @@ export default function HomePage() {
 
   return (
     <main className="flex h-full justify-center items-center min-h-screen">
-      {recipe && (
+    <Dock />
+      {/* {recipe && (
         <div key={recipe.id}>
           <div className="w-[360px] h-[640px] bg-black rounded-lg overflow-hidden flex flex-col justify-center">
             <VideoPlayer
@@ -84,7 +86,7 @@ export default function HomePage() {
             </p>
           </div>
         </div>
-      )}
+      )} */}
     </main>
   );
 }
