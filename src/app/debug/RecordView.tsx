@@ -5,30 +5,31 @@ import { useReactMediaRecorder } from "react-media-recorder";
 
 export const RecordView = () => {
     const [videos, setVideos] = useState<string[]>([]);
-    const [customStatus, setCustomStatus] = useState<"idle" | "recording">("idle");
+    const [customStatus, setCustomStatus] = useState<"idle" | "recording">(
+        "idle"
+    );
     const [cameraStream, setCameraStream] = useState<MediaStream | null>(null);
 
-    const {
-        startRecording,
-        stopRecording,
-        mediaBlobUrl,
-    } = useReactMediaRecorder({
-        video: true,
-        askPermissionOnMount: true,
-        onStart() {
-            setCustomStatus("recording");
-        },
-        onStop(blobUrl) {
-            setVideos((prev) => [...prev, blobUrl]);
-            setCustomStatus("idle");
-        },
-    });
+    const { startRecording, stopRecording, mediaBlobUrl } =
+        useReactMediaRecorder({
+            video: true,
+            askPermissionOnMount: true,
+            onStart() {
+                setCustomStatus("recording");
+            },
+            onStop(blobUrl) {
+                setVideos((prev) => [...prev, blobUrl]);
+                setCustomStatus("idle");
+            },
+        });
 
     // Kamera dauerhaft aktiv halten (unabhängig von Aufnahme)
     useEffect(() => {
         const initCamera = async () => {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: true,
+                });
                 setCameraStream(stream);
             } catch (err) {
                 console.error("Kamera Zugriff fehlgeschlagen:", err);
@@ -47,25 +48,28 @@ export const RecordView = () => {
                 <button
                     onClick={startRecording}
                     disabled={customStatus === "recording"}
-                    className={`px-4 py-2 rounded-lg text-white ${customStatus === "recording"
-                        ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-green-500"
-                        }`}
+                    className={`px-4 py-2 rounded-lg text-white ${
+                        customStatus === "recording"
+                            ? "bg-gray-400 cursor-not-allowed"
+                            : "bg-green-500"
+                    }`}
                 >
                     🎥 Start Recording
                 </button>
                 <button
                     onClick={stopRecording}
                     disabled={customStatus === "idle"}
-                    className={`px-4 py-2 rounded-lg text-white ${customStatus === "idle"
-                        ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-red-500"
-                        }`}
+                    className={`px-4 py-2 rounded-lg text-white ${
+                        customStatus === "idle"
+                            ? "bg-gray-400 cursor-not-allowed"
+                            : "bg-red-500"
+                    }`}
                 >
                     ⏹ Stop Recording
                 </button>
                 <p className="ml-4 text-gray-700">
-                    Status: {customStatus === "recording" ? "Recording..." : "Idle"}
+                    Status:{" "}
+                    {customStatus === "recording" ? "Recording..." : "Idle"}
                 </p>
             </div>
 

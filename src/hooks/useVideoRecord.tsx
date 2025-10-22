@@ -19,6 +19,7 @@ export function useVideoRecord() {
         mediaBlobUrl,
         pauseRecording,
         resumeRecording,
+        error,
     } = useReactMediaRecorder({
         // video: { facingMode },
         video: true,
@@ -80,25 +81,47 @@ export function useVideoRecord() {
         pauseRecording,
         resumeRecording,
         switchCamera,
-        setRecoredVideoList
+        setRecoredVideoList,
+        error,
     };
 }
 
-const VideoPreview = ({ stream }: { stream: MediaStream | null }) => {
+const VideoPreview = ({
+    stream,
+    error,
+}: {
+    stream: MediaStream | null;
+    error: string;
+}) => {
     const videoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
         if (videoRef.current && stream) {
             videoRef.current.srcObject = stream;
         }
-    }, [stream]);
+    }, [stream, error]);
 
-    if (!stream)
+    if (error) {
         return (
-            <div className="flex justify-center items-center h-screen bg-black text-white">
-                <p>Kamera wird geladen...</p>
+            <div className="flex flex-col justify-center items-center h-full text-white text-center space-y-2 px-4">
+                <p className="text-lg font-semibold">
+                    Zugriff auf Kamera fehlgeschlagen
+                </p>
+                <p className="text-sm">
+                    Bitte wählen Sie ein Video über den Button{" "}
+                    <strong>„Media Auswahl“</strong> aus.
+                </p>
             </div>
         );
+    }
+
+    if (!stream) {
+        return (
+            <div className="flex flex-col justify-center items-center h-full text-white">
+                <span className="w-24 loading loading-ring"></span>
+            </div>
+        );
+    }
 
     return (
         <video
