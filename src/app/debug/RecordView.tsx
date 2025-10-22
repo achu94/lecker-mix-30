@@ -48,22 +48,20 @@ export const RecordView = () => {
                 <button
                     onClick={startRecording}
                     disabled={customStatus === "recording"}
-                    className={`px-4 py-2 rounded-lg text-white ${
-                        customStatus === "recording"
+                    className={`px-4 py-2 rounded-lg text-white ${customStatus === "recording"
                             ? "bg-gray-400 cursor-not-allowed"
                             : "bg-green-500"
-                    }`}
+                        }`}
                 >
                     🎥 Start Recording
                 </button>
                 <button
                     onClick={stopRecording}
                     disabled={customStatus === "idle"}
-                    className={`px-4 py-2 rounded-lg text-white ${
-                        customStatus === "idle"
+                    className={`px-4 py-2 rounded-lg text-white ${customStatus === "idle"
                             ? "bg-gray-400 cursor-not-allowed"
                             : "bg-red-500"
-                    }`}
+                        }`}
                 >
                     ⏹ Stop Recording
                 </button>
