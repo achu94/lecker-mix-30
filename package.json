@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "dev:https": "node server.js",
     "build": "next build --turbopack",
-    "start": "next start"
+    "start": "PORT=4000 next start"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
