@@ -21,9 +21,8 @@ export function useVideoRecord() {
         resumeRecording,
         error,
     } = useReactMediaRecorder({
-        // video: { facingMode },
-        video: true,
-        customMediaStream: cameraStream ?? undefined,
+        video: { facingMode: facingMode},
+        customMediaStream: cameraStream,
         askPermissionOnMount: true,
         onStart() {
             setCustomStatus("recording");
@@ -38,7 +37,7 @@ export function useVideoRecord() {
         const initCamera = async () => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({
-                    video: true,
+                    video: { facingMode },
                 });
                 setCameraStream(stream);
             } catch (err) {
@@ -50,7 +49,7 @@ export function useVideoRecord() {
         return () => {
             cameraStream?.getTracks().forEach((track) => track.stop());
         };
-    }, []);
+    }, [facingMode, setFacingMode, setCameraStream]);
 
     const switchCamera = useCallback(async () => {
         if (cameraStream) {
@@ -62,8 +61,9 @@ export function useVideoRecord() {
 
         try {
             const newStream = await navigator.mediaDevices.getUserMedia({
-                video: { facingMode: newMode },
+                video: { facingMode}
             });
+
             setCameraStream(newStream);
         } catch (err) {
             console.error("Camera switch failed:", err);
