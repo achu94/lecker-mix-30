@@ -13,7 +13,7 @@ export function Dock() {
 
     return (
         <div className="dock">
-            <Link href={""}>
+            <Link href={"/"}>
                 <button className="">
                     <FontAwesomeIcon
                         className={iconsSizeTailwind}
