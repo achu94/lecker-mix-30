@@ -49,7 +49,7 @@ export function useVideoRecord() {
         return () => {
             cameraStream?.getTracks().forEach((track) => track.stop());
         };
-    }, [facingMode, setFacingMode, setCameraStream]);
+    }, [facingMode, setFacingMode, setCameraStream, customStatus]);
 
     const switchCamera = useCallback(async () => {
         if (cameraStream) {
